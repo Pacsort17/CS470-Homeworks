@@ -1,0 +1,34 @@
+F&D : 4 inputs, 1 cycle
+R&D : 4 inputs, 1 cycle
+I -> ALU : 4 inputs, 2 cycles (but can start a new operation each cycle)
+Comnmit : Commit up to 4 instructions
+
+Exception : PC is set to 0x10000
+
+End : Either all instruction executed or an exception is issued and handled
+
+Commit : Take intructions from Active List (FIFO Queue) until (a) 4 instructions taken (b) a not ready instruction is encountered (c) a ready instruction issues an exception 
+After commit : Free physical registers
+
+Exception : Exception flag register (records PC, like call / ret) + Reset all / Reverse operations -> Then when active list empty, stop the execution
+
+Read = Combinational (same cycle)
+Writes = Write next cycle BUT forwarding path from write to read (thus if writing, the value is available during the same cycle)
+(For instance, if no other physical registers are available, and the Commit stage just releases four physical registers in the current cycle, you can immediately allocate these released registers for the incoming decode instructions without waiting for the next cycle.)
+Recycling register = strict order
+
+Structures (record these structures in a json file at the beggining of each cycle) :
+• Program Counter
+• Physical Register File
+• Decoded Instruction Register
+• Exception Flag
+• Exception Program Counter
+• Register Map Table
+• Free List
+• Busy Bit Table
+• Active List
+• Integer Queue
++ Custom for forwarding paths and pipeline between stage 3 and 4
+/!\ No other data structure /!\
+
+32 architectural registers, 64 physical

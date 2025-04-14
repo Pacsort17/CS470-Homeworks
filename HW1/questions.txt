@@ -1,0 +1,2 @@
+1) JSON -> True est ok, ou faut absolument true ? (pareil pour les sauts à la ligne des listes)
+2) 
